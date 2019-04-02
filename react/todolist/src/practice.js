@@ -7,7 +7,6 @@ class Practice extends Component{
     constructor(props){
         super(props);
         this.state = store.getState();
-        console.log(store.getState())
     }
     render(){
         return(
