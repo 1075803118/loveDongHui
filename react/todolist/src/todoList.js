@@ -1,7 +1,6 @@
 import React,{Component,Fragment} from 'react'
 import TodoListItem from './todoListItem'
-import Test from './test'
-import './style.css'
+import axios from 'axios'
 
 class todoList extends Component {
     // 构造函数
@@ -28,6 +27,8 @@ class todoList extends Component {
                     value = {this.state.inputValue}
                     // 值改变的时候更改input的值的显示
                     onChange = {this.handleInputChange}
+                    // ref获取dom的时候使用，一般不使用ref ref在与states连用时，要放在states的第二个参数中
+                    ref = {(input) => {this.input = input}}
                 />
                 <button onClick = {this.handleBtnClick}>提交</button> </div>
                 <ul>
@@ -56,11 +57,19 @@ class todoList extends Component {
                     // })
                     }
                 </ul>
-                <Test content = {this.state.inputValue} />
             </Fragment>
         )
     }
-
+    componentDidMount(){
+        axios.get('/api/list').then((res)=>{
+            console.log(res.data);
+            this.setState( () => ({
+                list:[...res.data]
+            }))
+        }).catch(()=>{
+            alert('失败');
+        })
+    }
     // 当代码一坨一坨的时候就要想着做函数或者代码拆分
     getTodolistItem(){
         return this.state.list.map((item,index)=>{
@@ -79,9 +88,10 @@ class todoList extends Component {
         }) 
     }
     // 更改input的值
-    handleInputChange (e){
+    handleInputChange (){
         // 在react新版本中的写法 直接使用es6返回一个函数  异步操作
-        const value = e.target.value;
+        const value = this.input.value;
+        
         this.setState( ()=>({
             inputValue:value
         }))

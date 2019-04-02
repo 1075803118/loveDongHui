@@ -7,6 +7,15 @@ class TodoListItem extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
     }
+    // 是否应该被更新，有两个值true或者false
+    //nextProps下一个的输入的值 nextState下一个数据
+    shouldComponentUpdate(nextProps,nextState) {
+        if (nextProps.content !== this.props.content) {
+            return true
+        }else{
+            return false
+        }
+    }
     render() {
         // 代码优化
         const { content } = this.props;
@@ -36,7 +45,7 @@ class TodoListItem extends Component {
 TodoListItem.propTypes = {
     // isRequired意味着test不能传值为空
     // test:PropTypes.string.isRequired,
-    content:PropTypes.string,
+    content:PropTypes.oneOfType([PropTypes.string,PropTypes.number]),
     deleteItem:PropTypes.func,
     index:PropTypes.number
 }
