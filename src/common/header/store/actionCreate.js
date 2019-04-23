@@ -15,7 +15,7 @@ export const mouseLeave = () => ({
 });
 export const changePage = (page) => ({
 	type:constants.CHANGE_PAGE,
-	page
+	page 
 })
 
 const changeList = (data) => ({
