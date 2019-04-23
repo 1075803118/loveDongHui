@@ -1,0 +1,10 @@
+{
+    "debug.console.fontFamily": "'Source Code Pro','Menlo','Consolas','Monaco','Courier New'",
+    "terminal.integrated.fontFamily": "'Source Code Pro','Menlo','Consolas','Monaco','Courier New'",
+    "editor.fontFamily": "'Source Code Pro','Menlo','Consolas','Monaco','Courier New'",
+    "markdown.preview.fontFamily": "'Source Code Pro','Menlo','Consolas','Monaco','Courier New'",
+    "editor.fontSize": 13,
+    "search.followSymlinks": false,
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": false
+}
