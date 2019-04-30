@@ -4,7 +4,8 @@ import { Iconfont } from './statics/iconfont/iconfont';
 import { BrowserRouter,Route } from 'react-router-dom';
 import Home from './pages/home';
 import Detail from './pages/detail';
-import Login from './pages/login'
+import Login from './pages/login';
+import Writer from './pages/writer';
 // 通过引入provider获取store中的数据，使得所有的组件都可以连接store中的数据
 import { Provider } from 'react-redux'
 import Header from './common/header/index'
@@ -21,6 +22,7 @@ class App extends Component {
 				<Route path='/' exact component = {Home}></Route>
 				<Route path='/login' exact component = {Login}></Route>
 				<Route path='/detail/:id' exact component = {Detail}></Route>
+				<Route path='/writer' exact component = { Writer }></Route>
 			</BrowserRouter>
 			<GlobalStyle />
 			<Iconfont />
