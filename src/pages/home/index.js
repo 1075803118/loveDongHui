@@ -1,10 +1,14 @@
-import React,{ Component } from 'react';
+import React,{ PureComponent } from 'react';
 import List from './components/List';
 import Recommend from './components/Recommend';
-import Writer from './components/Writer';
-import  {HomeWraper,HomeLeft,HomeRight } from './style'
-
-class Home extends Component{
+import { connect } from 'react-redux';
+import { actionCreators } from './store';
+import  {HomeWraper,HomeLeft,HomeRight,BackTop } from './style';
+class Home extends PureComponent{
+	// scrollTo把窗口滚动到指定位置
+	handleScollTop(){
+		window.scrollTo(0,0);
+	}
 	render(){
 		return (
 			<HomeWraper>
@@ -14,11 +18,41 @@ class Home extends Component{
 				</HomeLeft>
 				<HomeRight>
 					<Recommend />
-					<Writer />
 				</HomeRight>
+				{ this.props.showScroll?<BackTop onClick = { this.handleScollTop}>^</BackTop>:null}		
 			</HomeWraper>
+			
 		)
+	}
+	componentWillMount(){
+		window.removeEventListener('scroll',this.props.changeScroll)
+	}
+	componentDidMount(){
+		this.props.changHomeData();
+		this.bindEvent();
+	}
+	// 监听scroll事件
+	bindEvent(){
+		window.addEventListener('scroll',this.props.changeScroll)
 	}
 }
 
-export default Home;
+	const mapState = (state) => ({
+		showScroll:state.getIn(['home','showScroll'])
+	})
+
+const mapDispatch = (dispatch) => ({
+	changHomeData(){
+		const action  = actionCreators.getHomeInfo();
+		dispatch(action);
+	},
+	changeScroll(){
+		if(window.document.documentElement.scrollTop>300){
+			dispatch(actionCreators.getScrollTop(true))
+		}else{
+			dispatch(actionCreators.getScrollTop(false))
+		}
+	}
+})
+
+export default connect(mapState,mapDispatch)(Home);

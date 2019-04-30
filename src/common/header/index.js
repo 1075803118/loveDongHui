@@ -1,7 +1,9 @@
-import React,{ Component } from 'react'
+import React,{ Component } from 'react';
 // 通过redux提供的connect属性，把store中的数据进项连接
-import { connect } from 'react-redux'
-import { actionCreate } from './store'
+import { connect } from 'react-redux';
+import { actionCreate } from './store';
+import { actionCreators as loginActionCreators } from '../../pages/login/store'
+import { Link } from 'react-router-dom';
 import {
     HeaderWraper,
     Logo,
@@ -51,17 +53,20 @@ class Header extends Component{
         }
     }
     render(){
-        const { focused,list,handleInputFocus,handleInputBlur } = this.props;
+        const { focused,list,handleInputFocus,handleInputBlur,login,logout } = this.props;
         return(
             <HeaderWraper>
-                <Logo></Logo>
+				<Link to='/'><Logo></Logo></Link>
                 <Nav>
                     <NavItem className='left active'>首页</NavItem>
                     <NavItem className='left'>下载App</NavItem>
                     <NavItem className='right'>
                         <i className='iconfont'>&#xe636;</i>
                     </NavItem>
-                    <NavItem className='right'>登录</NavItem>
+					{
+						login?<NavItem className='right' onClick={logout}>退出</NavItem>:<Link to='/login'><NavItem className='right'>登录</NavItem></Link>
+					}
+                    
                     <SearchWraper>
                         <CSSTransition
                             in={focused}
@@ -88,7 +93,8 @@ class Header extends Component{
                 </Addition>
             </HeaderWraper>
         )
-    }
+	}
+	
 }
 
 const mapStateToProps = (state) => {
@@ -97,7 +103,8 @@ const mapStateToProps = (state) => {
         list:state.getIn(['header','list']),
 		page:state.getIn(['header','page']),
 		mouseIn:state.getIn(['header','mouseIn']),
-		pageTotal:state.getIn(['header','pageTotal'])
+		pageTotal:state.getIn(['header','pageTotal']),
+		login:state.getIn(['login','login'])
     }
 }
 
@@ -142,6 +149,9 @@ const mapDispatchToProps = (dispatch) => {
 			}else{
 				dispatch(actionCreate.changePage(1));
 			}
+		},
+		logout(){
+			dispatch(loginActionCreators.logout())
 		}
     }
 }

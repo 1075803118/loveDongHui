@@ -130,3 +130,28 @@ export const WriterWraper = styled.div`
 	font-size:12px;
 	color:#969696;
  `;
+
+ export const LoadMore = styled.div`
+	width:100%;
+	height:40px;
+	line-height:40px;
+	background:#a5a5a5;
+	text-align:center;
+	border-radius:20px;
+	color:#fff;
+	margin:30px 0;
+	cursor:pointer;
+ `;
+
+ export const BackTop = styled.div`
+	width:60px;
+	height:60px;
+	line-height:60px;
+	position:fixed;
+	bottom:30px;
+	right:30px;
+	border:1px solid #333;
+	text-align:center;
+	font-size:30px;
+	cursor:pointer;
+ `;
